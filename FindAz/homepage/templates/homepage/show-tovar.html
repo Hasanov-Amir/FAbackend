@@ -1,0 +1,310 @@
+{% extends 'homepage/layout.html' %}
+{% load static %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <main class="main-of-tovar">
+        <div class="profile-of-tovar">
+            <div class="tovar-nazvaniye-tovara">
+                <h1>{{ tovar.title }}</h1>
+            </div>
+            <div class="tovar-ochenka">
+                <div>Просмотрено {{ tovar.open_times }} раз</div>
+                <div class="rating">{{ tovar.rating }}</div>
+                <div class="otzivi">{{ tovar.comments_count }}</div>
+            </div>
+            <div class="tovar-first-row">
+                <div class="main-information">
+                    <div class="photo-infa">
+                        <div class="tovar-photos">
+                            <div class="tovari-left-photos">
+                                {% if tovar.photo_main %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_main.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_1 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_1.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_2 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_2.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_3 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_3.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_4 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_4.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_5 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_5.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_6 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_6.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_7 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_7.url }}">
+                                    </div>{% endif %}
+                                {% if tovar.photo_8 %}
+                                    <div class="photo tovar-photo-change"><img src="{{ tovar.photo_8.url }}">
+                                    </div>{% endif %}
+                            </div>
+                            <div class="tovar-right-photo">
+                                <div class="main-photo"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+                            </div>
+                        </div>
+                        <div class="tovar-infa desktop">
+                            <div class="korotko-o-tovare">
+                                <h4>Коротко о товаре</h4>
+                                <ul>
+                                    {% for key, value in tovar.properties.items|slice:":6" %}
+                                        {% if forloop.counter0 < 6 %}
+                                            <li><div>{{ value.0 }}</div> <div class="ekran">{{ value.1 }}</div></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mesta-prodaji">
+                    <div class="mesto-prodaji-infa main-tovar">
+                        <div class="skidka"><div class="skidka-chena">{{ tovar.price }} ⋔</div></div>
+                        <div class="chena">{{ tovar.price_with_skidka }} ⋔</div>
+                        <div class="adress">{{ store.address_type }}</div>
+                        <div class="karta"><a href="">на карте</a></div>
+{#                        <div class="button"> <button>Добавить в корзину</button></div>#}
+                        {% if tovar in cart_tovari %}
+                            <div class="button"><input type="button" value="В корзине" class="vkorzine"></div>
+                        {% else %}
+                            <div class="button"><input type="button" value="Добавить в корзину"></div>
+                        {% endif %}
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="{{ store.get_absolute_url }}">{{ store.occupation }}</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 %</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesto-prodaji-infa">
+                        <div class="skidka"><div class="skidka-chena">129 900</div> <div class="prochent-skidki">-18%</div></div>
+                        <div class="chena">107 000</div>
+                        <div class="adress">парк им. Гусейна Джавида</div>
+                        <div class="karta"><a href="">на карте</a></div>
+                        <div class="button"> <button>Добавить в корзину</button></div>
+                        <div class="maqazin-prodovcha-infa">
+                            <div class="name"><a href="">Pro-store</a></div>
+                            <div class="rating-and-otziv">
+                                <div class="rating"><i class="fas fa-star"></i>4.9 /</div>
+                                <div class="otzivi">2862отзыва</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tovar-infa mobile">
+                    <div class="korotko-o-tovare">
+                        <h4>Коротко о товаре</h4>
+                        <ul>
+                            {% for key, value in tovar.properties.items|slice:":6" %}
+                                {% if forloop.counter0 < 6 %}
+                                    <li><div>{{ value.0 }}</div> <div class="ekran">{{ value.1 }}</div></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="next-infa">
+                <div class="kharakteristika">
+                    <h2>О товаре</h2>
+                    <p>{{ tovar.content }}</p>
+                    <div class="korotko-o-tovare">
+                        <h4></h4>
+                        <ul>
+                            {% for key, value in tovar.properties.items|slice:":6" %}
+                                <li><div>{{ value.0 }}</div> <div class="ekran">{{ value.1 }}</div></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <h2>Отзывы</h2>
+                <div class="otzivi">
+                    <div class="koments">
+                        {% for comment in comments %}
+                            <div class="koment">
+                                <div class="user-infa">
+                                    <div class="ava"></div>
+                                    <div class="infa">
+                                        <div class="user-name">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+                                        <div class="stars">{% if comment.rating == 1 %}{{ comment.rating }} star{% else %}{{ comment.rating }} stars{% endif %}</div>
+                                    </div>
+                                </div>
+                                <div class="comment-texts">
+                                    <div class="opit-ispolzovaniye">
+                                        <h3>Опыт использования:</h3>
+                                        <p>{{ comment.using_exp }}</p>
+                                    </div>
+                                    <div class="dostoinstva">
+                                        <h3>Достоинства:</h3>
+                                        <p>{{ comment.plus }}</p>
+                                    </div>
+                                    <div class="nedostatki">
+                                        <h3>Недостатки:</h3>
+                                        <p>{{ comment.minus }}</p>
+                                    </div>
+                                    <div class="main-komment">
+                                        <h3>Коментарий:</h3>
+                                        <p>{{ comment.comment }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                        <div class="button"><button>Показать ещё</button></div>
+                    </div>
+                    <div class="leave-koment">
+
+                        <div class="button"><button onclick="showCommentPlace()">Оставить отзыв</button></div>
+                        <div class="comment-place">
+                            <div class="photo"><img src="{{ tovar.photo_main.url }}" alt=""></div>
+
+                            <p>{{ tovar.title }}</p>
+                            <div class="tema">
+                                <label>Опыт использования:</label>
+                                <textarea></textarea>
+                            </div>
+                            <div class="tema">
+                                <label>Достоинства:</label>
+                                <textarea></textarea>
+                            </div>
+                            <div class="tema">
+                                <label>Недостатки:</label>
+                                <textarea></textarea>
+                            </div>
+                            <div class="tema">
+                                <label>Коментарий:</label>
+                                <textarea></textarea>
+                            </div>
+                            <div class="button"><button>Оправить</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            {% if from_one_lineyka %}
+                <h2>Из той же линейки</h2>
+                <div class="tovari">
+                    {% for i in from_one_lineyka %}
+                        <div class="qlavniy-tovar">
+                            {% if forloop.last and not forloop.first %}
+                                <div class="space">
+                                    <a href="{{ i.podpodcat.get_absolute_url }}">
+                                        <div>Ещё</div>
+                                        <div><i class="fas fa-angle-right"></i></div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="izbranniy-tovar">
+                                {% if request.user.is_authenticated %}
+                                    <label for="{{ i.pk }}" class="{% if i in fav_tovari %}red{% endif %}">
+                                        <i class="fa-solid fa-heart {{ i.pk }}"></i>
+                                    </label>
+                                    <input name="favorite" style="display: none" class='heart' type="checkbox" id="{{ i.pk }}">
+                                {% else %}
+                                    <i class="fa-solid fa-heart"></i>
+                                {% endif %}
+                            </div>
+                            <a href="{{ i.get_absolute_url }}">
+                                <div class="qlavniy-tovar-img"><img src="{{ i.photo_main.url }}" alt=""></div>
+                                <span class="tovar-info">
+                                    <div class="chena">{{ i.price }} ₼</div>
+                                    <div class="reyting">
+                                        <div class="zvezda">звезды</div>
+                                        <div class="chislo-ochenik">{{ i.rating }}</div>
+                                    </div>
+                                    <div class="tovar-name">{{ i.title|truncatewords:10 }}</div>
+                                    <div class="rekomenduyemost">{{ i.recommendation }}% рекомендуют</div>
+                                </span>
+                            </a>
+                            {% if i in cart_tovari %}
+                                <div class="button"><input type="button" value="В корзине" class="vkorzine"></div>
+                            {% else %}
+                                <div class="button"><input type="button" value="Добавить в корзину"></div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        let stars = document.querySelectorAll('.rating label')
+        stars.forEach(star => {
+            star.addEventListener('click', (event)=> {
+                let id = 1
+                let rating = event.target.innerText
+            })
+        })
+        function showCommentPlace() {
+            let a = document.querySelector('.comment-place')
+            a.classList.toggle('show-comment-place')
+            if (a.classList.contains('show-comment-place')) {
+                a.style.display = 'flex'
+                setTimeout(()=> {
+                    a.style.visibility = 'visible'
+                    a.style.opacity = '1'
+                })
+            } else {
+                a.style.visibility = 'hidden'
+                a.style.opacity = '0'
+                setTimeout(()=> {
+                    a.style.display = 'none'
+                }, 100)
+            }
+        }
+    </script>
+    <script>
+        function SendComment() {
+            let rating;
+            let stars = document.querySelectorAll('.rating input')
+            for (let i of stars) {
+                if (i.checked === true) {
+                    rating = i.parentElement.querySelector('label').innerText
+                }
+            }
+            let id = {{ tovar.pk }};
+            let comment = document.querySelector('form .comments-text').value
+            let plus = document.querySelector('form .pluses-text').value
+            let minus = document.querySelector('form .minuses-text').value
+            console.log(comment)
+            console.log(plus)
+            console.log(minus)
+            $(document).ready(function () {
+                $.ajax({
+                    data: {
+                        "id": id,
+                        "rating": rating,
+                        "comment": comment,
+                        "plus": plus,
+                        "minus": minus
+                    },
+                    url: "{% url 'crud_rating_comments' %}",
+                    success: function (response) {
+                        console.log(response.added)
+                    },
+                    error: function (response) {
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            })
+
+        }
+
+
+    </script>
+{% endblock %}
+
+{% block js %}
+{% endblock js %}
